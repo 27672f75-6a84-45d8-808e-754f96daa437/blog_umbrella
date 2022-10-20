@@ -18,11 +18,15 @@ defmodule BlogDomain.Boards do
     |> Repo.get(post_id)
   end
 
-  def get_user_post_lock(%User{id: user_id}, post_id) do
+  def get_post_lock(post_id) do
     Post
-    |> User.user_id_query(user_id)
     |> Post.post_lock_query()
     |> Repo.get(post_id)
+  end
+
+  def post_list() do
+    Post
+    |> Repo.all()
   end
 
   def list_user_posts(%User{id: user_id}) do
@@ -31,9 +35,9 @@ defmodule BlogDomain.Boards do
     |> Repo.all()
   end
 
-  def update_user_post(%User{} = user, post_id, params \\ %{}) do
+  def update_post(post_id, params \\ %{}) do
     fn ->
-      case get_user_post_lock(user, post_id) do
+      case get_post_lock(post_id) do
         %Post{} = post -> Post.changeset(post, params) |> Repo.update()
         nil -> {:error, :not_found}
       end
@@ -63,6 +67,12 @@ defmodule BlogDomain.Boards do
     |> Repo.get(comment_id)
   end
 
+  def get_post_comment(post_id, comment_id) do
+    Post
+    |> Post.get_comment_in_post_query(post_id, comment_id)
+    |> Repo.one()
+  end
+
   def get_user_post_all_comments(%User{id: user_id}, post_id) do
     Post
     |> User.user_id_query(user_id)
@@ -82,15 +92,15 @@ defmodule BlogDomain.Boards do
     |> Repo.all()
   end
 
-  def list_post_comments(%Post{id: post_id}) do
+  def list_post_comments(post_id) do
     Comment
     |> Post.post_id_query(post_id)
     |> Repo.all()
   end
 
-  def update_post_comment(%User{} = user, comment_id, params \\ %{}) do
+  def update_post_comment(%User{} = user, post_id, comment_id, params \\ %{}) do
     fn ->
-      case get_user_comment_lock(user, comment_id) do
+      case get_user_post_comment_lock(user, post_id, comment_id) do
         %Comment{} = comment -> Comment.changeset(comment, params) |> Repo.update()
         nil -> {:error, :not_found}
       end
@@ -100,9 +110,10 @@ defmodule BlogDomain.Boards do
 
   def delete_comment(%Comment{} = comment), do: Repo.delete(comment)
 
-  defp get_user_comment_lock(%User{id: user_id}, comment_id) do
+  defp get_user_post_comment_lock(%User{id: user_id}, post_id, comment_id) do
     Comment
     |> User.user_id_query(user_id)
+    |> Post.post_id_query(post_id)
     |> Comment.comment_lock_query()
     |> Repo.get(comment_id)
   end

@@ -32,12 +32,5 @@ defmodule BlogDomain.AccountsTest do
 
       refute old_name == new_user.user_name
     end
-
-    test "delete user" do
-      assert {:ok, %User{} = user} = Accounts.create_user(@valid_params)
-
-      assert {:ok, %User{}} = Accounts.delete_user(user)
-      assert Accounts.user_list() == []
-    end
   end
 end

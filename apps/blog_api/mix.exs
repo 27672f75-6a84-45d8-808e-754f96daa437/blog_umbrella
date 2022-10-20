@@ -1,7 +1,7 @@
 defmodule BlogApi.MixProject do
   use Mix.Project
 
-  def project do
+  def project() do
     [
       app: :blog_api,
       version: "0.1.0",
@@ -18,24 +18,17 @@ defmodule BlogApi.MixProject do
     ]
   end
 
-  # Configuration for the OTP application.
-  #
-  # Type `mix help compile.app` for more information.
-  def application do
+  def application() do
     [
       mod: {BlogApi.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end
 
-  # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support"]
   defp elixirc_paths(_), do: ["lib"]
 
-  # Specifies your project dependencies.
-  #
-  # Type `mix help deps` for examples and options.
-  defp deps do
+  defp deps() do
     [
       {:blog, in_umbrella: true},
       {:blog_domain, in_umbrella: true},
@@ -45,14 +38,12 @@ defmodule BlogApi.MixProject do
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
       {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.5"}
+      {:plug_cowboy, "~> 2.5"},
+      {:joken, "~> 2.5"}
     ]
   end
 
-  # Aliases are shortcuts or tasks specific to the current project.
-  #
-  # See the documentation for `Mix` for more info on aliases.
-  defp aliases do
+  defp aliases() do
     [
       setup: ["deps.get"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
