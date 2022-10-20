@@ -23,6 +23,9 @@ defmodule BlogClientMint.MixProject do
   end
 
   defp deps() do
-    []
+    [
+      {:castore, "~> 0.1.0"},
+      {:mint, "~> 1.0"}
+    ]
   end
 end
