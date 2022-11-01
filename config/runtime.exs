@@ -8,7 +8,5 @@ if config_env() == :prod do
 
   config :blog_api, BlogApi.Endpoint, secret_key_base: System.get_env("SECRET_KEY_BASE")
 
-  config :blog_web, BlogWeb.Endpoint, secret_key_base: System.get_env("SECRET_KEY_BASE")
-
   config :joken, default_signer: System.get_env("JOKEN_KEY_BASE")
 end

@@ -38,11 +38,6 @@ defmodule BlogDomain.Accounts do
 
   def user_list(), do: Repo.all(User)
 
-  def change_user(params \\ %{}) do
-    %User{}
-    |> User.changeset(params)
-  end
-
   defp get_user_lock(id) do
     User
     |> User.user_lock_query()

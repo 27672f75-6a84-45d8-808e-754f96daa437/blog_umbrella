@@ -18,12 +18,6 @@ defmodule BlogDomain.Boards do
     |> Repo.get(post_id)
   end
 
-  def get_user_post(user_id) do
-    Post
-    |> User.user_id_query(user_id)
-    |> Repo.all()
-  end
-
   def post_list() do
     Post
     |> Repo.all()

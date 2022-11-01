@@ -1,9 +1,0 @@
-<section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Blog" %></h1>
-</section>
-
-<div style="text-align: center">
-  <h4><%= live_redirect "Register", to:  Routes.users_path(@socket, :register) %></h4>
-  <h4><%= live_redirect "Login", to:  Routes.users_path(@socket, :login) %></h4>
-  <h4><%= live_redirect "Posts", to: Routes.live_path(@socket, BlogWeb.PostsLive) %></h4>
-</div>

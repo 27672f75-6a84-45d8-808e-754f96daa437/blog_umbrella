@@ -1,9 +1,5 @@
 import Config
 
-config :blog_web, BlogWeb.Endpoint,
-  url: [host: "example.com", port: 80],
-  cache_static_manifest: "priv/static/cache_manifest.json"
-
 config :blog_domain, BlogDomain.Repo,
   database: "blog_prod",
   pool_size: 10,
