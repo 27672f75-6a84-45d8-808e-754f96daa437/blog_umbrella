@@ -1,0 +1,7 @@
+<.live_component module={BlogWeb.UserFormComponent} 
+        id={:user_form} 
+        changeset={@changeset} 
+        live_action={@live_action}
+        return_to={Routes.live_path(@socket, BlogWeb.PageLive)}
+        trigger_submit={@trigger_submit}
+        action={Routes.user_session_path(@socket, @live_action)}  />

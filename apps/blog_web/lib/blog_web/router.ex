@@ -8,12 +8,19 @@ defmodule BlogWeb.Router do
     plug :put_root_layout, {BlogWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug BlogWeb.UserPlug
   end
 
   scope "/", BlogWeb do
     pipe_through :browser
 
     live "/", PageLive
+    live "/users/register", AccountLive, :register
+    live "/users/login", AccountLive, :login
+
+    post "/users/register", UserSessionController, :register
+    post "/users/login", UserSessionController, :login
+    delete "/users/log_out", UserSessionController, :delete
   end
 
   if Mix.env() in [:dev, :test] do
