@@ -1,6 +1,8 @@
 defmodule BlogWeb.Router do
   use BlogWeb, :router
 
+  import BlogWeb.UserAuth
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -15,12 +17,24 @@ defmodule BlogWeb.Router do
     pipe_through :browser
 
     live "/", PageLive
-    live "/users/register", AccountLive, :register
-    live "/users/login", AccountLive, :login
 
-    post "/users/register", UserSessionController, :register
-    post "/users/login", UserSessionController, :login
+
+    live "/posts", PostsLive
+    live "/posts/:post_id", PostsLive, :show
+
+
     delete "/users/log_out", UserSessionController, :delete
+
+    live_session :user, on_mount: {LiveAuth, :user} do
+
+    end
+
+    pipe_through :redirect_if_user_id_authenticated
+      live "/users/register", AccountLive, :register
+      live "/users/login", AccountLive, :login
+
+      post "/users/register", UserSessionController, :register
+      post "/users/login", UserSessionController, :login
   end
 
   if Mix.env() in [:dev, :test] do

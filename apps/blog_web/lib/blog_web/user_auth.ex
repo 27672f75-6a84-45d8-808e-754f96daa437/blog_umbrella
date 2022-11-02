@@ -20,4 +20,14 @@ defmodule BlogWeb.UserAuth do
     |> configure_session(renew: true)
     |> clear_session()
   end
+
+  def redirect_if_user_id_authenticated(conn, _opts) do
+    if conn.assigns[:user_id] do
+      conn
+      |> redirect(to: "/")
+      |> halt()
+    else
+      conn
+    end
+  end
 end
