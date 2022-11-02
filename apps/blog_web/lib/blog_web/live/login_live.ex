@@ -1,4 +1,4 @@
-defmodule BlogWeb.AccountLive do
+defmodule BlogWeb.LoginLive do
   use BlogWeb, :live_view
 
   alias BlogDomain.Accounts
@@ -7,7 +7,7 @@ defmodule BlogWeb.AccountLive do
     if connected?(socket) do
       {:ok, assign(socket, %{changeset: Accounts.change_user(), trigger_submit: false})}
     else
-      {:ok, assign(socket, %{changeset: nil, trigger_submit: false})}
+      {:ok, assign(socket, %{changeset: Accounts.change_user(), trigger_submit: false})}
     end
   end
 
@@ -15,16 +15,8 @@ defmodule BlogWeb.AccountLive do
     {:noreply, assign(socket, %{changeset: Accounts.change_user(user_params)})}
   end
 
-  def handle_event("register", %{"user" => user_params}, socket) do
-    trigger_submit(socket, user_params)
-  end
-
-  def handle_event("login", %{"user" => user_params}, socket) do
-    trigger_submit(socket, Map.put(user_params, "user_name", "User"))
-  end
-
-  defp trigger_submit(socket, user_params) do
-    changeset = Accounts.change_user(user_params)
+  def handle_event("login", %{"user" => user_paramas}, socket) do
+    changeset = Accounts.change_user(Map.put(user_paramas, "user_name", "User"))
     {:noreply, assign(socket, %{changeset: changeset, trigger_submit: changeset.valid?})}
   end
 end

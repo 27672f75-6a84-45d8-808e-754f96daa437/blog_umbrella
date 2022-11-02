@@ -1,0 +1,6 @@
+<.live_component module={BlogWeb.RegisterFormComponent} 
+                 id="register"
+                 changeset={@changeset}
+                 trigger_submit={@trigger_submit}
+                 action={Routes.user_session_path(@socket, @live_action)} 
+                 return_to={Routes.live_path(@socket, BlogWeb.PageLive)} />

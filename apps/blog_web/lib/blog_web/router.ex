@@ -15,8 +15,8 @@ defmodule BlogWeb.Router do
     pipe_through :browser
 
     live "/", PageLive
-    live "/users/register", AccountLive, :register
-    live "/users/login", AccountLive, :login
+    live "/users/register", RegisterLive, :register
+    live "/users/login", LoginLive, :login
 
     post "/users/register", UserSessionController, :register
     post "/users/login", UserSessionController, :login
