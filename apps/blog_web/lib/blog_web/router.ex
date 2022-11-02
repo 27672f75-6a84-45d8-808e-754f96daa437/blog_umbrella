@@ -30,8 +30,8 @@ defmodule BlogWeb.Router do
   scope "/", BlogWeb do
     pipe_through [:browser, :redirect_if_user_id_authenticated]
 
-    live "/users/register", AccountLive, :register
-    live "/users/login", AccountLive, :login
+    live "/users/register", RegisterLive, :register
+    live "/users/login", LoginLive, :login
 
     post "/users/register", UserSessionController, :register
     post "/users/login", UserSessionController, :login

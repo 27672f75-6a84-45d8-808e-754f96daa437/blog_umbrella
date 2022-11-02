@@ -15,8 +15,8 @@
         <nav>
           <ul>
           <%= if @user_id == nil do %>
-            <li><%= link "Register", to: Routes.account_path(@conn, :register) %></li>
-            <li><%= link "Login", to: Routes.account_path(@conn, :login) %></li>
+            <li><%= link "Register", to: Routes.register_path(@conn, :register) %></li>
+            <li><%= link "Login", to: Routes.login_path(@conn, :login) %></li>
           <% else %>
             <li><%= link "Logout", to: Routes.user_session_path(@conn, :delete), method: :delete%></li>
           <% end %>
