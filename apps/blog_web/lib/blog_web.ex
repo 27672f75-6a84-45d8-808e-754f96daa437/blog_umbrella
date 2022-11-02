@@ -69,6 +69,7 @@ defmodule BlogWeb do
       use Phoenix.HTML
 
       import Phoenix.LiveView.Helpers
+      import BlogWeb.LiveHelpers
 
       import Phoenix.View
 

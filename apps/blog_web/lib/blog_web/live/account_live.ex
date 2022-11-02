@@ -7,7 +7,7 @@ defmodule BlogWeb.AccountLive do
     if connected?(socket) do
       {:ok, assign(socket, %{changeset: Accounts.change_user(), trigger_submit: false})}
     else
-      {:ok, assign(socket, %{changeset: nil, trigger_submit: false})}
+      {:ok, assign(socket, %{changeset: Accounts.change_user(), trigger_submit: false})}
     end
   end
 

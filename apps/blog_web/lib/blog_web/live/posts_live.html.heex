@@ -1,0 +1,23 @@
+<div>
+    <%= if @selected_post do %>
+        <.live_component module={BlogWeb.PostComponent} 
+                         id="post" 
+                         title={@selected_post.title}
+                         description={@selected_post.description}
+                         comments={@comments}
+                         return_to={Routes.live_path(@socket, __MODULE__)} />
+        
+    <% else %>
+        
+        <h1> Listing Post </h1>
+        <%= live_redirect "Home", to: Routes.live_path(@socket, BlogWeb.PageLive) ,class: "button" %>
+        <%= if @user_id do %>
+            <%= live_patch "Write", to: Routes.posts_path(@socket, :new ) ,class: "button" %>
+        <% end %>
+        <.live_component module={BlogWeb.PostsComponent} id="posts" posts={@posts} user_id={@user_id}/>
+    <% end %>
+    <%= if @live_action == :new do %>
+        <%= live_modal %{component: BlogWeb.PostFormComponent, 
+                         return_to: Routes.live_path(@socket, __MODULE__)}%>
+    <% end %>
+</div>

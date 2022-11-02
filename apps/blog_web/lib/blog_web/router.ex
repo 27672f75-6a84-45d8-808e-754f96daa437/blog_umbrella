@@ -18,23 +18,23 @@ defmodule BlogWeb.Router do
 
     live "/", PageLive
 
-
-    live "/posts", PostsLive
-    live "/posts/:post_id", PostsLive, :show
-
-
     delete "/users/log_out", UserSessionController, :delete
 
-    live_session :user, on_mount: {LiveAuth, :user} do
-
+    live_session :user, on_mount: {BlogWeb.LiveAuth, :user} do
+      live "/posts", PostsLive
+      live "/posts/new", PostsLive, :new
+      live "/posts/:post_id/edit", PostsLive, :edit
     end
+  end
 
-    pipe_through :redirect_if_user_id_authenticated
-      live "/users/register", AccountLive, :register
-      live "/users/login", AccountLive, :login
+  scope "/", BlogWeb do
+    pipe_through [:browser, :redirect_if_user_id_authenticated]
 
-      post "/users/register", UserSessionController, :register
-      post "/users/login", UserSessionController, :login
+    live "/users/register", AccountLive, :register
+    live "/users/login", AccountLive, :login
+
+    post "/users/register", UserSessionController, :register
+    post "/users/login", UserSessionController, :login
   end
 
   if Mix.env() in [:dev, :test] do

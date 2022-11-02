@@ -1,3 +1,6 @@
 <section class="phx-hero">
   <h1><%= gettext "Welcome to %{name}!", name: "Blog" %></h1>
 </section>
+<ul>
+  <li><%= live_redirect "Posts", to: Routes.live_path(@socket, BlogWeb.PostsLive) %></li>
+</ul>
