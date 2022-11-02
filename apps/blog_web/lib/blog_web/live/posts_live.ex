@@ -7,7 +7,7 @@ defmodule BlogWeb.PostsLive do
     if connected?(socket) do
       {:ok, assign(socket, %{posts: Boards.post_list()})}
     else
-      {:ok, assign(socket, %{posts: []})}
+      {:ok, assign(socket, %{posts: Boards.post_list()})}
     end
   end
 
@@ -16,13 +16,13 @@ defmodule BlogWeb.PostsLive do
 
     {:noreply,
      assign(socket, %{
-       selected_post: post,
+       post: post,
        comments: Boards.list_post_comments(id),
        page_title: post.title
      })}
   end
 
   def handle_params(_params, _url, socket) do
-    {:noreply, assign(socket, %{selected_post: nil})}
+    {:noreply, assign(socket, %{post: nil})}
   end
 end

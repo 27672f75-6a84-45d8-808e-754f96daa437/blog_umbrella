@@ -41,9 +41,8 @@ defmodule BlogDomain.Boards do
 
   def delete_post(%Post{} = post), do: Repo.delete(post)
 
-  def change_post(params \\ %{}) do
-    %Post{}
-    |> Post.changeset(params)
+  def change_post(%Post{} = post,params \\ %{}) do
+    Post.changeset(post,params)
   end
 
   def write_comment(%User{id: user_id}, post_id, params \\ %{}) do

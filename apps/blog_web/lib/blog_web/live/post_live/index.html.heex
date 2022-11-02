@@ -1,0 +1,31 @@
+<%= if @live_action in [:new, :edit] do %>
+    <.live_modal return_to={Routes.post_index_path(@socket, :index)}>
+        <.live_component
+            module={BlogWeb.PostLive.FormComponent}
+            id={@post.id || :new}
+            title={@post.title}
+            action={@live_action}
+            post={@post}
+            user_id={@user_id}
+            return_to={Routes.post_index_path(@socket, :index)}/>
+    </.live_modal>
+<% end %>
+
+<div>
+    <h1> Listing Post </h1>
+    <%= live_redirect "Home", to: Routes.live_path(@socket, BlogWeb.PageLive) ,class: "button" %>
+    <%= if @user_id do %>
+        <%= live_patch "Write", to: Routes.post_index_path(@socket, :new ) ,class: "button" %>
+    <% end %>
+    <table>
+        <%= for post <- @posts do %>
+          <tr>
+            <td><%= post.title %></td>
+
+            <%= if @user_id == post.user_id do %>
+              <td><%= live_patch( "Edit", to: Routes.post_index_path(@socket, :edit, post.id)) %> </td>
+            <% end %>
+          </tr>
+        <% end %>
+    </table>
+</div>

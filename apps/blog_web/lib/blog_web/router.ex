@@ -21,10 +21,19 @@ defmodule BlogWeb.Router do
     delete "/users/log_out", UserSessionController, :delete
 
     live_session :user, on_mount: {BlogWeb.LiveAuth, :user} do
-      live "/posts", PostsLive
-      live "/posts/new", PostsLive, :new
-      live "/posts/:post_id/edit", PostsLive, :edit
+      live "/posts", PostLive.Index, :index
+      live "/posts/new", PostLive.Index, :new
+      live "/posts/:post_id/edit", PostLive.Index, :edit
+      # live "/posts/:post_id", PostLive, :index
     end
+
+
+    # live_session :user, on_mount: {BlogWeb.LiveAuth, :user} do
+    #   live "/posts", PostsLive, :index
+    #   live "/posts/new", PostsLive, :new
+    #   live "/posts/:post_id", PostLive, :index
+    #   live "/posts/:post_id/edit", PostLive, :edit
+    # end
   end
 
   scope "/", BlogWeb do

@@ -1,5 +1,5 @@
 <div>
-    <%= if @selected_post do %>
+    <%= if @post do %>
         <.live_component module={BlogWeb.PostComponent} 
                          id="post" 
                          title={@selected_post.title}
@@ -15,9 +15,5 @@
             <%= live_patch "Write", to: Routes.posts_path(@socket, :new ) ,class: "button" %>
         <% end %>
         <.live_component module={BlogWeb.PostsComponent} id="posts" posts={@posts} user_id={@user_id}/>
-    <% end %>
-    <%= if @live_action == :new do %>
-        <%= live_modal %{component: BlogWeb.PostFormComponent, 
-                         return_to: Routes.live_path(@socket, __MODULE__)}%>
     <% end %>
 </div>
