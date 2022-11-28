@@ -11,7 +11,6 @@ config :blog_web, BlogWeb.Endpoint,
     ]
   ],
   server: true,
-  force_ssl: [rewrite_on: [:x_forwarded_proto]],
   check_origin: false
 
 config :blog_domain, BlogDomain.Repo,
@@ -19,8 +18,7 @@ config :blog_domain, BlogDomain.Repo,
   pool_size: 10,
   port: 5432,
   priv: "priv/repo",
-  ssl: false,
-  socket_options: [:inet6]
+  ssl: false
 
 config :blog_api, BlogApi.Endpoint,
   url: [scheme: "https", host: "twozeronine.com", port: 443],
@@ -33,7 +31,6 @@ config :blog_api, BlogApi.Endpoint,
     ]
   ],
   server: true,
-  check_origin: false,
-  force_ssl: [rewrite_on: [:x_forwarded_proto]]
+  check_origin: false
 
 config :logger, level: :info
