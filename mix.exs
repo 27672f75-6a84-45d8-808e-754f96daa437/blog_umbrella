@@ -30,7 +30,7 @@ defmodule Blog.Umbrella.MixProject do
         applications: [
           blog: :permanent,
           blog_domain: :permanent,
-          blog_web: :permanent
+          blog_api: :permanent
         ]
       ]
     ]
